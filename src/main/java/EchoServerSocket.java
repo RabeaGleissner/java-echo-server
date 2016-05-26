@@ -3,10 +3,8 @@ import java.net.ServerSocket;
 
 public class EchoServerSocket {
     private ServerSocket serverSocket;
-    private int portNumber;
 
     public EchoServerSocket(int portNumber) {
-        this.portNumber = portNumber;
         try {
             this.serverSocket = new ServerSocket(portNumber);
         } catch (IOException e) {
@@ -14,7 +12,20 @@ public class EchoServerSocket {
         }
     }
 
+    public EchoServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
     public int getPortNumber() {
         return serverSocket.getLocalPort();
+    }
+
+    public void accept() {
+        try {
+            serverSocket.accept();
+        } catch (IOException e) {
+            System.out.println("The socket had a problem accepting input");
+            System.out.println(e.getMessage());
+        }
     }
 }
