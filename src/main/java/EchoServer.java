@@ -1,17 +1,17 @@
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
 
 public class EchoServer {
+    private final EchoServerSocket echoServerSocket;
 
-    public void start(String[] args) {
-        int portNumber = Integer.parseInt(args[0]);
+    public EchoServer(EchoServerSocket echoServerSocket) {
+        this.echoServerSocket = echoServerSocket;
+    }
+
+    public void start() {
         try (
-                EchoServerSocket serverSocket = new EchoServerSocket(
-                        new EchoClientSocket(new Socket()), new ServerSocket(portNumber));
-                EchoClientSocket clientSocket = serverSocket.accept();
+                EchoClientSocket clientSocket = echoServerSocket.accept();
                 OutputStream outputStream = clientSocket.getOutputStream();
+                InputStream inputStream = clientSocket.getInputStream();
 
                 )
                 {
@@ -23,4 +23,10 @@ public class EchoServer {
         }
     }
 
+
+    public BufferedReader getInput(InputStream inputStream) {
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+        return new BufferedReader(inputStreamReader);
+    }
 }
