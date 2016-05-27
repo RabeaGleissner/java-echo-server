@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class EchoClientSocket {
+public class EchoClientSocket implements AutoCloseable {
 
     private final Socket clientSocket;
 
@@ -17,5 +17,10 @@ public class EchoClientSocket {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }
