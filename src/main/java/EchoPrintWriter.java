@@ -1,6 +1,6 @@
 import java.io.PrintWriter;
 
-public class EchoPrintWriter {
+public class EchoPrintWriter implements AutoCloseable {
 
     private final PrintWriter printWriter;
 
@@ -10,5 +10,10 @@ public class EchoPrintWriter {
 
     public void println(String message) {
         printWriter.println(message);
+    }
+
+    @Override
+    public void close() throws Exception {
+        printWriter.close();
     }
 }

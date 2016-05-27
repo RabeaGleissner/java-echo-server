@@ -33,6 +33,6 @@ public class EchoClientSocket implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-
+        clientSocket.close();
     }
 }

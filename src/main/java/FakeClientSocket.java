@@ -18,11 +18,8 @@ public class FakeClientSocket extends Socket {
         return outputStream.toString();
     }
 
-    public void setInput(String input) throws IOException {
+    public void setInput(String input) {
         message = input;
-        if (outputStream != null) {
-            outputStream.write(input.getBytes());
-        }
     }
 
     public InputStream getInputStream() {
