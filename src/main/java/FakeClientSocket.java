@@ -3,7 +3,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.Socket;
 
-public class FakeSocket extends Socket {
+public class FakeClientSocket extends Socket {
 
     private ByteArrayOutputStream outputStream;
     private String message;
