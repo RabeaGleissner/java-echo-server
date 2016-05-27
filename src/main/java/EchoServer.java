@@ -29,4 +29,9 @@ public class EchoServer {
 
         return new BufferedReader(inputStreamReader);
     }
+
+    public void writeToStream(OutputStream outputStream, String message) {
+        PrintWriter out = new PrintWriter(outputStream, true);
+        out.println(message);
+    }
 }

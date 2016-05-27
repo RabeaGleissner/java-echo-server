@@ -5,7 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class EchoServerTest {
 
