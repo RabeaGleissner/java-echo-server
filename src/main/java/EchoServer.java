@@ -3,6 +3,18 @@ import java.net.Socket;
 
 public class EchoServer {
 
+    private final EchoServerSocket echoServerSocket;
+
+    public EchoServer(EchoServerSocket echoServerSocket) {
+        this.echoServerSocket = echoServerSocket;
+    }
+
+    public void start() {
+        Socket clientSocket = echoServerSocket.accept();
+        String message = readInput(clientSocket);
+        write(message, clientSocket);
+    }
+
     public String readInput(Socket socket) {
         try {
             InputStream inputStream = socket.getInputStream();
@@ -14,7 +26,6 @@ public class EchoServer {
             System.out.println(e.getMessage());
         }
         return "";
-
     }
 
     public void write(String message, Socket socket) {
@@ -27,7 +38,5 @@ public class EchoServer {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
     }
-
 }

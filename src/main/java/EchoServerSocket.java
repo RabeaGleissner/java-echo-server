@@ -1,20 +1,25 @@
+import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class EchoServerSocket implements  AutoCloseable {
     private ServerSocket serverSocket;
-    private EchoClientSocket clientSocket;
 
-    public EchoServerSocket(EchoClientSocket clientSocket, ServerSocket serverSocket) {
+    public EchoServerSocket(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
-        this.clientSocket = clientSocket;
     }
 
     public int getPortNumber() {
         return serverSocket.getLocalPort();
     }
 
-    public EchoClientSocket accept() {
-        return clientSocket;
+    public Socket accept() {
+        try {
+            return serverSocket.accept();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void close() throws Exception {

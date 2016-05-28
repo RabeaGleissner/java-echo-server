@@ -1,25 +1,36 @@
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class EchoServerTest {
 
     @Test
-    public void returnsGivenInput() {
-        EchoServer echoServer = new EchoServer();
+    public void returnsGivenInput() throws IOException {
+        EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
         fakeClientSocket.setInput("hello!");
-
 
         assertEquals("hello!", echoServer.readInput(fakeClientSocket));
     }
 
     @Test
-    public void writesGivenMessage() {
-        EchoServer echoServer = new EchoServer();
+    public void writesGivenMessage() throws IOException {
+        EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
         echoServer.write("hello!", fakeClientSocket);
 
         assertEquals("hello!\n", fakeClientSocket.printedMessage());
+    }
+
+    @Test
+    public void acceptsInputFromServerSocket() throws IOException {
+        FakeClientSocket fakeClientSocket = new FakeClientSocket();
+        FakeServerSocket fakeServerSocket = new FakeServerSocket(fakeClientSocket, "hello!!");
+        EchoServer echoServer = new EchoServer(new EchoServerSocket(fakeServerSocket));
+
+        echoServer.start();
+        assertEquals("hello!!\n", fakeClientSocket.printedMessage());
     }
 }

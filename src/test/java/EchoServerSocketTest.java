@@ -3,16 +3,15 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class EchoServerSocketTest {
 
     @Test
     public void createsNewServerSocketOnSpecificPort() throws IOException {
         ServerSocket serverSocket = new ServerSocket(1234);
-        EchoServerSocket echoServerSocket = new EchoServerSocket(new EchoClientSocket(new Socket()),
+        EchoServerSocket echoServerSocket = new EchoServerSocket(
                 serverSocket);
 
         assertEquals(1234, echoServerSocket.getPortNumber());
@@ -21,14 +20,13 @@ public class EchoServerSocketTest {
 
     @Test
     public void returnsClientSocketToAcceptInput() throws IOException {
+        String message = "hello";
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
         EchoServerSocket echoServerSocket = new EchoServerSocket(
-                new EchoClientSocket(fakeClientSocket), new ServerSocketDummy());
+                new FakeServerSocket(fakeClientSocket, message));
 
-        EchoClientSocket clientSocket = echoServerSocket.accept();
-        ByteArrayOutputStream outputStream = (ByteArrayOutputStream)
-                clientSocket.getOutputStream();
-        String message = "hello";
+        fakeClientSocket = (FakeClientSocket) echoServerSocket.accept();
+        ByteArrayOutputStream outputStream = fakeClientSocket.getOutputStream();
         outputStream.write(message.getBytes());
 
         assertEquals(message, outputStream.toString());
