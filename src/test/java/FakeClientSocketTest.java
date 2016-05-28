@@ -20,7 +20,7 @@ public class FakeClientSocketTest {
     @Test
     public void readsGivenInput() throws IOException {
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
-        fakeClientSocket.setInput("hello");
+        fakeClientSocket.input("hello");
 
         InputStream inputStream = fakeClientSocket.getInputStream();
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);

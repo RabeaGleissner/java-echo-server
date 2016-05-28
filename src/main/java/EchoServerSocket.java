@@ -9,10 +9,6 @@ public class EchoServerSocket implements  AutoCloseable {
         this.serverSocket = serverSocket;
     }
 
-    public int getPortNumber() {
-        return serverSocket.getLocalPort();
-    }
-
     public Socket accept() {
         try {
             return serverSocket.accept();

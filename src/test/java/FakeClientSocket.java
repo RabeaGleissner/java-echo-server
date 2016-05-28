@@ -2,11 +2,18 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FakeClientSocket extends Socket {
 
     private ByteArrayOutputStream outputStream;
-    private String message;
+    private List<String> message;
+
+    public FakeClientSocket() {
+        message = new LinkedList<>();
+    }
 
     public ByteArrayOutputStream getOutputStream() {
          outputStream = new ByteArrayOutputStream();
@@ -17,11 +24,12 @@ public class FakeClientSocket extends Socket {
         return outputStream.toString();
     }
 
-    public void setInput(String input) {
-        message = input;
+    public void input(String ... input) {
+        message.addAll(Arrays.asList(input));
     }
 
     public InputStream getInputStream() {
-        return new ByteArrayInputStream(message.getBytes());
+        String word = message.remove(0);
+        return new ByteArrayInputStream(word.getBytes());
     }
 }
