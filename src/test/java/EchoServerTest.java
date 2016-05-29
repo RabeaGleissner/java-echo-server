@@ -19,7 +19,7 @@ public class EchoServerTest {
     public void writesGivenMessage() throws IOException {
         EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
-        echoServer.writeMessageToClient("hello!", fakeClientSocket);
+        echoServer.sendMessageToClient("hello!", fakeClientSocket);
 
         assertEquals("hello!\n", fakeClientSocket.printedMessage());
     }
@@ -27,10 +27,11 @@ public class EchoServerTest {
 //    @Test
 //    public void acceptsInputFromServerSocket() throws IOException {
 //        FakeClientSocket fakeClientSocket = new FakeClientSocket();
-//        FakeServerSocket fakeServerSocket = new FakeServerSocket(fakeClientSocket, "quit");
+//        FakeServerSocket fakeServerSocket = new FakeServerSocket(fakeClientSocket, "hello");
 //        EchoServer echoServer = new EchoServer(new EchoServerSocket(fakeServerSocket));
 //
 //        echoServer.start();
+//
 //        assertEquals("hello!!\n", fakeClientSocket.printedMessage());
 //    }
 }

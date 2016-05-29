@@ -9,10 +9,10 @@ import java.util.List;
 public class FakeClientSocket extends Socket {
 
     private ByteArrayOutputStream outputStream;
-    private List<String> message;
+    private List<String> messages;
 
     public FakeClientSocket() {
-        message = new LinkedList<>();
+        messages = new LinkedList<>();
     }
 
     public ByteArrayOutputStream getOutputStream() {
@@ -25,11 +25,11 @@ public class FakeClientSocket extends Socket {
     }
 
     public void input(String ... input) {
-        message.addAll(Arrays.asList(input));
+        messages.addAll(Arrays.asList(input));
     }
 
     public InputStream getInputStream() {
-        String word = message.remove(0);
+        String word = messages.remove(0);
         return new ByteArrayInputStream(word.getBytes());
     }
 }

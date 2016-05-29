@@ -17,7 +17,7 @@ public class FakeServerSocket extends ServerSocket {
 
     public FakeClientSocket accept() {
         if (input != null) {
-            fakeClientSocket.input(input, "quit");
+            fakeClientSocket.input(input, null);
         }
         return fakeClientSocket;
     }
