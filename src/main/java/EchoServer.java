@@ -13,12 +13,12 @@ public class EchoServer {
         System.out.println("new server started");
         Socket clientSocket = echoServerSocket.accept();
         String message;
-        while ((message = read(clientSocket)) != null) {
-            write(message, clientSocket);
+        while ((message = readClientMessage(clientSocket)) != null) {
+            writeMessageToClient(message, clientSocket);
         }
     }
 
-    public String read(Socket socket) {
+    public String readClientMessage(Socket socket) {
         try {
             InputStream inputStream = socket.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -31,8 +31,7 @@ public class EchoServer {
         return "";
     }
 
-    public void write(String message, Socket socket) {
-        System.out.println("in write message");
+    public void writeMessageToClient(String message, Socket socket) {
         try {
             OutputStream outputStream = socket.getOutputStream();
             PrintWriter out = new PrintWriter(outputStream, true);

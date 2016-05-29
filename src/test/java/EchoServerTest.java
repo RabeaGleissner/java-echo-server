@@ -12,14 +12,14 @@ public class EchoServerTest {
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
         fakeClientSocket.input("hello!");
 
-        assertEquals("hello!", echoServer.read(fakeClientSocket));
+        assertEquals("hello!", echoServer.readClientMessage(fakeClientSocket));
     }
 
     @Test
     public void writesGivenMessage() throws IOException {
         EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
-        echoServer.write("hello!", fakeClientSocket);
+        echoServer.writeMessageToClient("hello!", fakeClientSocket);
 
         assertEquals("hello!\n", fakeClientSocket.printedMessage());
     }
