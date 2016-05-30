@@ -10,11 +10,11 @@ public class EchoServer {
     }
 
     public void start() {
-        System.out.println("server started");
         Socket clientSocket = echoServerSocket.accept();
-        String message;
-        while ((message = readClientMessage(clientSocket)) != null) {
+        String message = readClientMessage(clientSocket);
+        while (!(message).equals("stop")) {
             sendMessageToClient(message, clientSocket);
+            message = readClientMessage(clientSocket);
         }
     }
 

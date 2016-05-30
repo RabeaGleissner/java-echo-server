@@ -11,8 +11,9 @@ public class EchoServerSocketTest {
     public void returnsClientSocketToAcceptInput() throws IOException {
         String message = "hello";
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
+        fakeClientSocket.input(message);
         EchoServerSocket echoServerSocket = new EchoServerSocket(
-                new FakeServerSocket(fakeClientSocket, message));
+                new FakeServerSocket(fakeClientSocket));
 
         fakeClientSocket = (FakeClientSocket) echoServerSocket.accept();;
         ByteArrayOutputStream outputStream = fakeClientSocket.getOutputStream();
