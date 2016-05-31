@@ -2,10 +2,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class EchoServerSocket implements AutoCloseable {
+public class EchoServerSocket extends ServerSocket {
     private ServerSocket serverSocket;
 
-    public EchoServerSocket(ServerSocket serverSocket) {
+    public EchoServerSocket(ServerSocket serverSocket) throws IOException {
+        super();
         this.serverSocket = serverSocket;
     }
 
@@ -16,9 +17,5 @@ public class EchoServerSocket implements AutoCloseable {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void close() throws Exception {
-
     }
 }

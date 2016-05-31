@@ -16,12 +16,16 @@ public class FakeClientSocket extends Socket {
     }
 
     public ByteArrayOutputStream getOutputStream() {
-         outputStream = new ByteArrayOutputStream();
+        outputStream = new ByteArrayOutputStream();
         return outputStream;
     }
 
     public String printedMessage() {
-        return outputStream.toString();
+        if (outputStream != null) {
+            return outputStream.toString();
+        } else {
+            return "nothing to print";
+        }
     }
 
     public void input(String ... input) {
