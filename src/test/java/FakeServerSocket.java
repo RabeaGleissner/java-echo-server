@@ -5,9 +5,6 @@ public class FakeServerSocket extends ServerSocket {
 
     private FakeClientSocket fakeClientSocket;
 
-    public FakeServerSocket() throws IOException {
-    }
-
     public FakeServerSocket(FakeClientSocket fakeClientSocket) throws IOException {
         super();
         this.fakeClientSocket = fakeClientSocket;

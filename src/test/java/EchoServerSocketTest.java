@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,5 +21,11 @@ public class EchoServerSocketTest {
         outputStream.write(message.getBytes());
 
         assertEquals(message, outputStream.toString());
+    }
+
+    @Test(expected=IOException.class)
+    public void throwExceptionWhenItCannotCreateSocket() throws IOException {
+        EchoServerSocket echoServerSocket = new EchoServerSocket(new ServerSocket(222));
+        echoServerSocket.accept();
     }
 }
