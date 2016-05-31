@@ -7,24 +7,6 @@ import static junit.framework.TestCase.assertEquals;
 public class EchoServerTest {
 
     @Test
-    public void readsAndReturnsGivenInput() throws IOException {
-        EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
-        FakeClientSocket fakeClientSocket = new FakeClientSocket();
-        fakeClientSocket.input("hello!");
-
-        assertEquals("hello!", echoServer.readClientMessage(fakeClientSocket));
-    }
-
-    @Test
-    public void sendsGivenMessageToClient() throws IOException {
-        EchoServer echoServer = new EchoServer(new EchoServerSocket(new FakeServerSocket()));
-        FakeClientSocket fakeClientSocket = new FakeClientSocket();
-        echoServer.sendMessageToClient("hello!", fakeClientSocket, false);
-
-        assertEquals("hello!\n", fakeClientSocket.printedMessage());
-    }
-
-    @Test
     public void acceptsInputFromServerSocketUntilStopIsSent() throws IOException {
         FakeClientSocket fakeClientSocket = new FakeClientSocket();
         fakeClientSocket.input("hello!!", "stop");

@@ -48,6 +48,14 @@ public class EchoServer {
     }
 
     public void sendMessageToClient(String message, Socket socket, Boolean reverse) {
+        String messageToSend = prepareMessage(message, reverse);
+        PrintWriter sender = createClientSender(socket);
+        if (sender != null) {
+            sender.println(messageToSend);
+        }
+    }
+
+    private String prepareMessage(String message, Boolean reverse) {
         if (reverse && !isCommand(message)) {
             message = new StringBuilder(message).reverse().toString();
         }
@@ -55,11 +63,7 @@ public class EchoServer {
         if (isCommand(message)) {
             message = message.replace("#", "") + " mode activated";
         }
-
-        PrintWriter sender = createClientSender(socket);
-        if (sender != null) {
-            sender.println(message);
-        }
+        return message;
     }
 
     private BufferedReader createClientReader(Socket socket) {
