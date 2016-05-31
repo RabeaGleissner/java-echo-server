@@ -9,7 +9,7 @@ import java.util.List;
 public class FakeClientSocket extends Socket {
 
     private ByteArrayOutputStream outputStream;
-    private List<String> messages;
+    private final List<String> messages;
 
     public FakeClientSocket() {
         messages = new LinkedList<>();
@@ -21,11 +21,7 @@ public class FakeClientSocket extends Socket {
     }
 
     public String printedMessage() {
-        if (outputStream != null) {
-            return outputStream.toString();
-        } else {
-            return "nothing to print";
-        }
+        return outputStream.toString();
     }
 
     public void input(String ... input) {

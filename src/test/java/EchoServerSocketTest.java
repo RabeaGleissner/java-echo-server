@@ -15,7 +15,7 @@ public class EchoServerSocketTest {
         EchoServerSocket echoServerSocket = new EchoServerSocket(
                 new FakeServerSocket(fakeClientSocket));
 
-        fakeClientSocket = (FakeClientSocket) echoServerSocket.accept();;
+        fakeClientSocket = (FakeClientSocket) echoServerSocket.accept();
         ByteArrayOutputStream outputStream = fakeClientSocket.getOutputStream();
         outputStream.write(message.getBytes());
 

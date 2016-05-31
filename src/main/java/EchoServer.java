@@ -5,6 +5,8 @@ public class EchoServer {
 
     private final EchoServerSocket echoServerSocket;
     private boolean reverse = false;
+    private final String reverseCommand = "#reverse";
+    private final String normalCommand = "#normal";
 
     public EchoServer(EchoServerSocket echoServerSocket) {
         this.echoServerSocket = echoServerSocket;
@@ -21,22 +23,24 @@ public class EchoServer {
     }
 
     private void switchModes(String message) {
-        if (message.equals("#reverse")) {
+        if (message.equals(reverseCommand)) {
             reverse = true;
         }
-        if (message.equals("#normal")) {
+        if (message.equals(normalCommand)) {
             reverse = false;
         }
     }
 
-    public boolean isCommand(String message) {
-        return (message.equals("#reverse") || message.equals("#normal"));
+    private boolean isCommand(String message) {
+        return (message.equals(reverseCommand) || message.equals(normalCommand));
     }
 
     public String readClientMessage(Socket socket) {
         try {
             BufferedReader clientReader = createClientReader(socket);
-            return clientReader.readLine();
+            if (clientReader != null) {
+                return clientReader.readLine();
+            }
         } catch (IOException e) {
             System.out.println("Couldn't get input stream");
         }
@@ -52,19 +56,27 @@ public class EchoServer {
             message = message.replace("#", "") + " mode activated";
         }
 
-        try {
-            PrintWriter sender = createClientSender(socket);
+        PrintWriter sender = createClientSender(socket);
+        if (sender != null) {
             sender.println(message);
-        } catch (IOException e) {
-            System.out.println("Couldn't get output stream");
         }
     }
 
-    private BufferedReader createClientReader(Socket socket) throws IOException {
-        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    private BufferedReader createClientReader(Socket socket) {
+        try {
+            return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private PrintWriter createClientSender(Socket socket) throws IOException {
-        return new PrintWriter(socket.getOutputStream(), true);
+    private PrintWriter createClientSender(Socket socket) {
+        try {
+            return new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
