@@ -61,7 +61,7 @@ public class EchoServer {
         }
 
         if (isCommand(message)) {
-            message = message.replace("#", "") + " mode activated";
+            message = "-- " + message.replace("#", "") + " mode activated --";
         }
         return message;
     }

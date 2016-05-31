@@ -24,7 +24,7 @@ public class EchoServerTest {
 
         fakeClientSocket.input("#reverse", "stop");
         echoServer.start();
-        assertEquals("reverse mode activated\n", fakeClientSocket.printedMessage());
+        assertEquals("-- reverse mode activated --\n", fakeClientSocket.printedMessage());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class EchoServerTest {
 
         fakeClientSocket.input("#normal", "stop");
         echoServer.start();
-        assertEquals("normal mode activated\n", fakeClientSocket.printedMessage());
+        assertEquals("-- normal mode activated --\n", fakeClientSocket.printedMessage());
     }
 
     @Test
